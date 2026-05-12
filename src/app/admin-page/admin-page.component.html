@@ -1,0 +1,196 @@
+<div class="admin-container">
+  <div class="tabs">
+    <button (click)="setTab('add')" [class.active]="tab === 'add'">
+      <i class="fas fa-plus"></i> Add Movie
+    </button>
+
+    <button (click)="setTab('movies')" [class.active]="tab === 'movies'">
+      <i class="fas fa-film"></i> Manage Movies
+    </button>
+
+    <button (click)="setTab('comments')" [class.active]="tab === 'comments'">
+      <i class="fas fa-comments"></i> Comments
+    </button>
+
+    <button (click)="setTab('users')" [class.active]="tab === 'users'">
+      <i class="fas fa-users"></i> Users
+    </button>
+  </div>
+
+  <hr class="divider" />
+
+  <div class="tab-content">
+    <div *ngIf="tab === 'add'" class="section-container">
+      <div class="admin-card">
+        <form (ngSubmit)="addMovie()" class="admin-form">
+          <div class="input-group">
+            <label>Movie Title</label>
+            <input
+              type="text"
+              placeholder="e.g. Inception"
+              [(ngModel)]="movie.title"
+              name="title"
+              required
+            />
+          </div>
+
+          <div class="form-row">
+            <div class="input-group">
+              <label>Release Year</label>
+              <input
+                type="number"
+                placeholder="2024"
+                [(ngModel)]="movie.year"
+                name="year"
+                required
+              />
+            </div>
+            <div class="input-group">
+              <label>IMDB Rating</label>
+              <input
+                type="number"
+                step="0.1"
+                placeholder="8.5"
+                [(ngModel)]="movie.rating"
+                name="rating"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label>Director</label>
+
+            <input
+              type="text"
+              [(ngModel)]="movie.director"
+              (input)="filterDirectors()"
+              (focus)="onFocus()"
+              (blur)="hideDropdown()"
+              placeholder="Select or type director..."
+              name="director"
+              required
+            />
+
+            <div class="dropdown" *ngIf="showDropdown">
+              <div
+                class="dropdown-item"
+                *ngFor="let d of filteredDirectors"
+                (click)="selectDirector(d)"
+              >
+                {{ d }}
+              </div>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label>Genre</label>
+            <select [(ngModel)]="movie.genre" name="genre" required>
+              <option value="" disabled>Select genre</option>
+              <option *ngFor="let g of genres" [value]="g">{{ g }}</option>
+            </select>
+          </div>
+
+          <div class="input-group">
+            <label>Poster</label>
+            <input type="file" (change)="onFileSelected($event)" />
+          </div>
+
+          <div class="input-group">
+            <label>Trailer URL (embed link)</label>
+            <input
+              type="text"
+              placeholder="https://youtube.com/embed/..."
+              [(ngModel)]="movie.trailerUrl"
+              name="trailerUrl"
+            />
+          </div>
+
+          <div class="input-group">
+            <label>Description</label>
+            <textarea
+              [(ngModel)]="movie.description"
+              name="description"
+              rows="4"
+              placeholder="Enter movie plot..."
+              required
+            ></textarea>
+          </div>
+
+          <button type="submit" class="primary-btn">Add Movie</button>
+        </form>
+      </div>
+    </div>
+
+    <div *ngIf="tab === 'movies'" class="section-container">
+      <div class="list-grid">
+        <div class="list-item" *ngFor="let m of movies">
+          <div class="item-inputs">
+            <div class="input-group">
+              <label>Title</label>
+              <input [(ngModel)]="m.title" />
+            </div>
+            <div class="form-row">
+              <div class="input-group">
+                <label>Year</label>
+                <input [(ngModel)]="m.year" type="number" />
+              </div>
+              <div class="input-group">
+                <label>Rating</label>
+                <input [(ngModel)]="m.rating" type="number" step="0.1" />
+              </div>
+            </div>
+          </div>
+          <div class="item-actions">
+            <button class="save-btn" (click)="updateMovie(m)">
+              Save Changes
+            </button>
+            <button class="delete-btn" (click)="deleteMovie(m.id)">
+              Delete Movie
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="tab === 'comments'" class="section-container">
+      <h2>All Comments</h2>
+      <div class="list-grid">
+        <div class="list-item comment-card" *ngFor="let c of comments">
+          <div class="info">
+            <div class="comment-header">
+              <label>User: {{ c.userName }}</label>
+              <span class="rating-badge">{{ c.rating }}/10</span>
+            </div>
+
+            <div class="movie-link" (click)="goToMovie(c.movieId)">
+              <i class="fas fa-film"></i> {{ c.movieTitle }}
+            </div>
+
+            <div class="comment-body">
+              <p class="comment-text">"{{ c.text }}"</p>
+            </div>
+          </div>
+
+          <div class="item-actions">
+            <button class="delete-btn" (click)="deleteComment(c.id)">
+              Remove Comment
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="tab === 'users'" class="section-container">
+      <div class="list-grid">
+        <div class="list-item user-card" *ngFor="let u of users">
+          <div class="info">
+            <strong>{{ u.firstName }} {{ u.lastName }}</strong>
+            <span class="email-text">{{ u.email }}</span>
+          </div>
+          <button class="delete-btn" (click)="banUser(u.id)">Ban User</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

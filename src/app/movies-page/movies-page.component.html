@@ -1,0 +1,96 @@
+<div class="func-container">
+  <input
+    type="text"
+    class="search-input"
+    placeholder="Search movies..."
+    [(ngModel)]="searchTerm"
+    (input)="loadMovies()"
+  />
+
+  <div class="filter-bar">
+    <select
+      class="custom-select"
+      [(ngModel)]="sortByOption"
+      (change)="onSortChange(sortByOption)"
+    >
+      <option value="">No sorting</option>
+      <option value="ratingAsc">Lowest rating</option>
+      <option value="ratingDesc">Highest rating</option>
+    </select>
+
+    <select
+      #yearSelect
+      class="custom-select"
+      (change)="onYearChange(yearSelect.value)"
+    >
+      <option value="">All years</option>
+      <option *ngFor="let y of years" [value]="y">{{ y }}</option>
+    </select>
+
+    <select
+      #genreSelect
+      class="custom-select"
+      (change)="onGenreChange(genreSelect.value)"
+    >
+      <option value="">All genres</option>
+      <option *ngFor="let genre of genres" [value]="genre">
+        {{ genre }}
+      </option>
+    </select>
+  </div>
+</div>
+
+<div class="movies-container">
+  <div class="movie-grid">
+    <div
+      class="movie-card"
+      *ngFor="let movie of movies"
+      (click)="openDetails(movie.id)"
+    >
+      <div
+        class="poster"
+        [style.backgroundImage]="'url(' + movie.posterUrl + ')'"
+      >
+        <div class="badge-4k">4K</div>
+
+        <div class="overlay">
+          <p><i class="fas fa-calendar-alt"></i> {{ movie.year }}</p>
+          <p><i class="fas fa-star"></i> {{ movie.rating }}</p>
+          <p><i class="fas fa-film"></i> {{ movie.director }}</p>
+        </div>
+      </div>
+
+      <div class="movie-title" [title]="movie.title">
+        {{ movie.title }}
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="pagination">
+  <button
+    (click)="prevPage()"
+    [disabled]="page === 1"
+    aria-label="Previous Page"
+  >
+    <i class="fas fa-chevron-left"></i>
+  </button>
+
+  <span>{{ page }} / {{ getTotalPages() }}</span>
+
+  <button
+    (click)="nextPage()"
+    [disabled]="page * pageSize >= totalCount"
+    aria-label="Next Page"
+  >
+    <i class="fas fa-chevron-right"></i>
+  </button>
+</div>
+
+<button
+  class="back-to-top"
+  [class.visible]="showBackToTop"
+  (click)="scrollToTop()"
+>
+  <i class="fas fa-arrow-up"></i>
+</button>

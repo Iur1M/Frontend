@@ -1,0 +1,27 @@
+<div class="activity-page">
+  <header class="page-header">
+    <h1>Activity History</h1>
+  </header>
+
+  <div *ngIf="loading" class="status-msg">
+    <i class="fas fa-circle-notch fa-spin"></i> Loading...
+  </div>
+
+  <div *ngIf="!loading && activities.length === 0" class="status-msg">
+    No activity yet
+  </div>
+
+  <div class="activity-grid" *ngIf="!loading">
+    <div class="activity-card" *ngFor="let a of activities | slice:0:12">
+      <div class="poster-container">
+        <img [src]="a.moviePoster" alt="Poster" />
+      </div>
+
+      <div class="details">        
+          <span class="activity-label">{{ label(a.activityType) }}</span>
+        <h3 class="movie-name">{{ a.movieTitle }}</h3>
+        <time class="date">{{ a.createdAt | date:'mediumDate' }}</time>
+      </div>
+    </div>
+  </div>
+</div>

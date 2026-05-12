@@ -1,0 +1,38 @@
+<div class="container">
+  <div class="login-box">
+    <div class="login form">
+      <header>Login</header>
+      <div class="error" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+      <form (ngSubmit)="login()">
+        <input
+          type="email"
+          placeholder="Enter your email"
+          [(ngModel)]="email"
+          name="email"
+          required
+        />
+
+        <input
+          type="password"
+          placeholder="Enter your password"
+          [(ngModel)]="password"
+          name="password"
+          required
+        />
+
+        <a href="#">Forgot password?</a>
+
+        <input type="submit" class="button" value="Login" />
+      </form>
+
+      <div class="signup">
+        <span
+          >Don't have an account?
+          <a routerLink="/register">Signup</a>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

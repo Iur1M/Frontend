@@ -1,0 +1,33 @@
+<div class="home">
+  <section class="hero">
+    <span class="badge">Cinema Database</span>
+    <h1>Welcome to <span class="accent">Movieverse</span></h1>
+    <p>Discover and explore the world's best movies</p>
+    <a routerLink="/movies" class="btn"> Explore Movies </a>
+  </section>
+
+  <section class="top-movies">
+    <div class="section-title">
+      <h2>Top Rated</h2>
+      <div class="line"></div>
+    </div>
+
+    <div class="movie-grid">
+      <div
+        class="movie-card"
+        *ngFor="let movie of topMovies"
+        (click)="openDetails(movie.id)"
+      >
+        <div
+          class="poster"
+          [style.backgroundImage]="'url(' + movie.posterUrl + ')'"
+        >
+          <div class="rating">
+            <i class="fas fa-star"></i> {{ movie.rating }}
+          </div>
+        </div>
+        <div class="movie-title">{{ movie.title }}</div>
+      </div>
+    </div>
+  </section>
+</div>

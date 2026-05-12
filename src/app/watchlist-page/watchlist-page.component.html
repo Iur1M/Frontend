@@ -1,0 +1,30 @@
+<div class="watchlist-container">
+  <h1 class="brutalist-title">MY WATCHLIST</h1>
+
+  <div class="movie-grid" *ngIf="!loading && movies.length > 0">
+    <div
+      class="movie-card"
+      *ngFor="let movie of movies"
+      [routerLink]="['/movies', movie.id]"
+    >
+      <button 
+        class="remove-btn" 
+        (click)="removeFromWatchlist($event, movie.id)"
+        title="Remove from watchlist"
+      >
+        <i class="fas fa-times"></i>
+      </button>
+
+      <img [src]="movie.posterUrl" alt="Poster" />
+      
+      <div class="card-overlay">
+        <h3>{{ movie.title }}</h3>
+      </div>
+    </div>
+  </div>
+
+  <div class="empty-state" *ngIf="!loading && movies.length === 0">
+    <p>YOUR LIST IS EMPTY.</p>
+    <button class="explore-btn" routerLink="/movies">EXPLORE MOVIES</button>
+  </div>
+</div>

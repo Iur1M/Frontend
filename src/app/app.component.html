@@ -1,0 +1,82 @@
+<header class="header">
+  <div class="nav-container">
+    <div class="logo" routerLink="/">
+      <div class="logo-text">
+        <div class="logo-title">MOVIEVERSE</div>
+      </div>
+    </div>
+    <input type="checkbox" id="menu-toggle" #menuToggle />
+    <label for="menu-toggle" class="burger">
+      <span></span><span></span><span></span>
+    </label>
+    <nav class="nav">
+      <a routerLink="/" (click)="closeMenu(menuToggle)">Home</a>
+      <a routerLink="/movies" (click)="closeMenu(menuToggle)">Movies</a>
+      <ng-container *ngIf="!user; else loggedIn">
+        <a
+          routerLink="/register"
+          class="register"
+          (click)="closeMenu(menuToggle)"
+          >Register</a
+        >
+        <a routerLink="/login" class="login" (click)="closeMenu(menuToggle)"
+          >Login</a
+        >
+      </ng-container>
+      <ng-template #loggedIn>
+        <div class="avatar-wrapper desktop-only">
+          <div class="avatar-click" (click)="toggleMenu()">
+            <img src="assets/avatar.jpg" class="avatar" />
+            <span class="username">{{ user?.firstName }}</span>
+          </div>
+          <div class="dropdown" *ngIf="menuOpen">
+            <div
+              class="dropdown-item"
+              routerLink="/profile"
+              (click)="closeMenu(menuToggle); $event.stopPropagation()"
+            >
+              Profile
+            </div>
+            <div
+              class="dropdown-item"
+              routerLink="/activity"
+              (click)="closeMenu(menuToggle); $event.stopPropagation()"
+            >
+              Activity history
+            </div>
+            <div
+              class="dropdown-item"
+              routerLink="/watchlist"
+              (click)="closeMenu(menuToggle); $event.stopPropagation()"
+            >
+              Watchlist
+            </div>
+            <div
+              class="dropdown-item logout-item"
+              (click)="logout(menuToggle); $event.stopPropagation()"
+            >
+              Logout
+            </div>
+          </div>
+        </div>
+        <div class="mobile-user-links mobile-only">
+          <div class="mobile-user-info">
+            <img src="assets/avatar.jpg" class="avatar" />
+            <span class="username-mobile">{{ user?.firstName }}</span>
+          </div>
+          <a routerLink="/profile" (click)="closeMenu(menuToggle)">Profile</a>
+          <a routerLink="/activity" (click)="closeMenu(menuToggle)"
+            >Activity history</a
+          >
+          <a routerLink="/watchlist" (click)="closeMenu(menuToggle)"
+            >Watchlist</a
+          >
+          <a class="logout-link" (click)="logout(menuToggle)">Logout</a>
+        </div>
+      </ng-template>
+    </nav>
+  </div>
+</header>
+<div [@routeAnimation]="router.url">
+  <router-outlet></router-outlet>
+</div>

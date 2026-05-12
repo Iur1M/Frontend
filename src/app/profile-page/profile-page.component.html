@@ -1,0 +1,66 @@
+<div class="profile">
+  <div class="top-row">
+    <div class="user-info-block">
+      <img [src]="user?.avatarUrl || 'assets/avatar.jpg'" class="avatar" />
+      <div class="user-details">
+        <h2>{{ user?.firstName }} {{ user?.lastName }}</h2>
+        <p class="gender-text">{{ user?.gender }}</p>
+      </div>
+    </div>
+
+    <div class="favorite-movie-container">
+      <p class="label">Favorite Movie</p>
+      <div class="poster-slot" (click)="toggleMoviePicker()">
+        <img
+          *ngIf="user?.favoriteMoviePoster"
+          [src]="user.favoriteMoviePoster"
+          class="fav-poster"
+        />
+        <div *ngIf="!user?.favoriteMoviePoster" class="add-btn">+</div>
+      </div>
+
+      <div class="movie-picker" *ngIf="showMoviePicker">
+        <div class="picker-header">Select a Movie</div>
+        <div class="picker-list">
+          <div
+            *ngFor="let m of allMovies"
+            (click)="selectFavorite(m)"
+            class="picker-item"
+          >
+            {{ m.title }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="watchlist-section">
+    <h3>Users watchlist</h3>
+    <div class="watchlist-grid">
+      <div class="watchlist-item" *ngFor="let movie of watchlistMovies">
+        <img [src]="movie.posterUrl" />
+      </div>
+      <div class="poster-placeholder" *ngIf="watchlistMovies.length === 0">
+        No movies in watchlist
+      </div>
+    </div>
+  </div>
+
+  <div class="activity-section">
+    <h2>Recent Activity</h2>
+
+    <div *ngIf="loading" class="status-msg">Loading...</div>
+
+    <div class="activity-grid" *ngIf="!loading">
+      <div class="activity" *ngFor="let a of activities">
+        <img [src]="a.moviePoster" />
+
+        <div class="info">
+          <span class="activity-label">{{ label(a.activityType) }}</span>
+          <h3 class="movie-name">{{ a.movieTitle }}</h3>
+          <time class="time">{{ a.createdAt | date: "mediumDate" }}</time>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

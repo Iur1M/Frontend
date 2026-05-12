@@ -1,0 +1,101 @@
+.activity-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: #fff;
+}
+
+.page-header {
+  margin-bottom: 40px;
+}
+
+.page-header h1 {
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.status-msg {
+  text-align: center;
+  padding: 50px;
+  color: #666;
+}
+
+.activity-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.activity-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 16px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.05);
+  transition: background 0.3s ease;
+}
+
+.activity-card:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.poster-container {
+  flex-shrink: 0;
+}
+
+.poster-container img {
+  width: 90px;
+  height: 130px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.activity-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  color: #aaa;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.movie-name {
+  margin: 0 0 6px 0;
+  font-size: 18px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #ffffff;
+}
+
+.date {
+  font-size: 13px;
+  color: #555;
+}
+
+@media (max-width: 992px) {
+  .activity-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 650px) {
+  .activity-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .activity-card {
+    gap: 15px;
+  }
+}

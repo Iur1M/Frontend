@@ -1,0 +1,243 @@
+.movies-container,
+.func-container {
+  padding: 0 5%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.func-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+.search-input,
+.custom-select {
+  padding: 12px 16px;
+  background: #1f262d;
+  color: #fff;
+  border: 1px solid #2a323a;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 500;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.search-input {
+  width: 100%;
+  max-width: 340px;
+}
+
+.search-input:focus,
+.custom-select:focus {
+  border-color: #1ed760;
+  box-shadow: 0 0 0 3px rgba(30, 215, 96, 0.1);
+}
+
+.search-input::placeholder {
+  color: #9aa4ad;
+}
+
+.filter-bar {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.custom-select {
+  cursor: pointer;
+}
+
+.custom-select option {
+  background: #0e1215;
+  color: #fff;
+}
+
+.movie-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 32px;
+  margin-bottom: 60px;
+}
+
+.movie-card {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.movie-card:hover {
+  transform: translateY(-8px);
+}
+
+.poster {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  border-radius: 12px;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.3s ease;
+}
+
+.movie-card:hover .poster {
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
+}
+
+.badge-4k {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: #ff003c;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 6px;
+  z-index: 3;
+  box-shadow: 0 2px 8px rgba(255, 0, 60, 0.3);
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(14, 18, 21, 0.65);
+  backdrop-filter: blur(5px);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 2;
+}
+
+.movie-card:hover .overlay {
+  opacity: 1;
+}
+
+.overlay p {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.overlay i {
+  color: #1ed760;
+}
+
+.movie-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  line-height: 1.4;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  margin: 40px 0 60px;
+}
+
+.pagination button {
+  padding: 10px 24px;
+  border: none;
+  border-radius: 30px;
+  background: #1e1e1e;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.pagination button:hover:not(:disabled) {
+  background: #1ed760;
+  color: #0e1215;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(30, 215, 96, 0.2);
+}
+
+.pagination button:disabled {
+  background: #2a323a;
+  color: #9aa4ad;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.pagination span {
+  font-size: 15px;
+  font-weight: 600;
+  color: #ccc;
+  letter-spacing: 1px;
+}
+
+.back-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 45px;
+  height: 45px;
+  background: #1ed760;
+  color: #0e1215;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 99;
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.back-to-top:hover {
+  transform: translateY(-5px);
+  background: #1fef6c;
+}
+
+@media (max-width: 768px) {
+  .func-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-input {
+    max-width: 100%;
+  }
+
+  .filter-bar {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .filter-bar select:first-child {
+    grid-column: span 2;
+  }
+}

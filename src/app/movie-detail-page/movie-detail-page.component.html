@@ -1,0 +1,153 @@
+<div class="page" *ngIf="movie">
+  <div class="container">
+    <div class="info">
+      <h1 class="title">{{ movie.title }}</h1>
+
+      <div class="meta-row">
+        <span class="year">
+          <i class="fas fa-calendar-alt"></i>
+          {{ movie.year }}
+        </span>
+        <span class="rating">
+          <i class="fas fa-star"></i>
+          <span class="rating-value">{{ movie.rating }}</span>
+          <span class="rating-max">/10</span>
+        </span>
+      </div>
+
+      <div class="meta-list">
+        <div class="meta-item">
+          <span class="label">Director</span>
+          <span class="value">{{ movie.director }}</span>
+        </div>
+
+        <div class="meta-item">
+          <span class="label">Genre</span>
+          <span class="value">{{ movie.genre }}</span>
+        </div>
+      </div>
+
+      <p class="description">
+        {{ movie.description }}
+      </p>
+
+      <div class="buttons">
+        <button class="watch-btn" (click)="watchNow()">
+          <i class="fas fa-play"></i> Watch Now
+        </button>
+
+        <button
+          class="watchlist-btn"
+          [class.active]="isInWatchlist"
+          (click)="toggleWatchlist()"
+          *ngIf="auth.isLoggedIn()"
+        >
+          <i class="fas" [ngClass]="isInWatchlist ? 'fa-check' : 'fa-plus'"></i>
+          {{ isInWatchlist ? "In Watchlist" : "Add to Watchlist" }}
+        </button>
+
+        <button class="back-btn" (click)="goBack()">
+          <i class="fas fa-arrow-left"></i> Back to Movies
+        </button>
+      </div>
+    </div>
+
+    <div class="trailer">
+      <iframe
+        [src]="safeTrailerUrl"
+        frameborder="0"
+        allow="autoplay; encrypted-media"
+        allowfullscreen
+      ></iframe>
+    </div>
+  </div>
+</div>
+
+<div class="gallery-section">
+  <h2 class="gallery-title">Check out more</h2>
+
+  <div class="movie-gallery">
+    <div class="gallery-track">
+      <div
+        class="gallery-item"
+        *ngFor="let sm of suggestedMovies"
+        [routerLink]="['/movies', sm.id]"
+      >
+        <img [src]="sm.posterUrl" class="gallery-poster" />
+        <p class="gallery-item-title">{{ sm.title }}</p>
+      </div>
+
+      <div
+        class="gallery-item"
+        *ngFor="let sm of suggestedMovies"
+        [routerLink]="['/movies', sm.id]"
+      >
+        <img [src]="sm.posterUrl" class="gallery-poster" />
+        <p class="gallery-item-title">{{ sm.title }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="comments-wrapper">
+  <div class="comments">
+    <h2>Comments</h2>
+
+    <div *ngIf="auth.isLoggedIn(); else loginHint" class="comment-form">
+      <textarea
+        [(ngModel)]="newComment"
+        placeholder="Write your comment..."
+      ></textarea>
+
+      <div class="comment-actions">
+        <select [(ngModel)]="newRating">
+          <option *ngFor="let r of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]" [value]="r">
+            {{ r }}/10
+          </option>
+        </select>
+        <button (click)="addComment()">Post</button>
+      </div>
+    </div>
+
+    <ng-template #loginHint>
+      <div class="login-hint">
+        <p>You must be logged in to write a comment.</p>
+        <button (click)="goToLogin()">Login</button>
+      </div>
+    </ng-template>
+
+    <div class="comment" *ngFor="let c of comments">
+      <img src="assets/avatar.jpg" class="avatar" />
+
+      <div class="comment-body">
+        <div class="comment-header">
+          <span class="username">{{ c.userName }}</span>
+          <span class="rating"
+            ><i class="fas fa-star"></i> {{ c.rating }}/10</span
+          >
+        </div>
+
+        <p class="comment-text">{{ c.text }}</p>
+
+        <div class="comment-footer">
+          <button
+            class="like-btn"
+            (click)="likeComment(c)"
+            [class.liked]="c.isLiked"
+          >
+            <i class="fas fa-heart"></i>
+            <span class="likes-count">{{ c.likes }}</span>
+          </button>
+
+          <button
+            *ngIf="canDelete(c)"
+            class="delete-btn"
+            (click)="deleteComment(c.id)"
+          >
+            <i class="fas fa-trash-alt"></i> Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

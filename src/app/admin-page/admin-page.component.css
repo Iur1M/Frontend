@@ -1,0 +1,273 @@
+.admin-container {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 25px;
+  background: #111;
+  border-radius: 12px;
+  color: #fff;
+  font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  box-shadow: 0 10px 50px rgba(0, 0, 0, 0.7);
+}
+
+.tabs {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.tabs button {
+  padding: 12px 24px;
+  background: #1b1b1b;
+  border: 1px solid #333;
+  color: #bbb;
+  cursor: pointer;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.tabs button:hover {
+  background: #252525;
+  color: #fff;
+}
+
+.tabs button.active {
+  background: #0d6122;
+  color: #fff;
+}
+
+.divider {
+  border: 0;
+  height: 1px;
+  background: #333;
+  margin: 10px 0 30px 0;
+}
+
+.list-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.admin-card,
+.list-item {
+  background: #181818;
+  border: 1px solid #222;
+  border-radius: 10px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.list-item:hover {
+  border-color: #444;
+}
+
+.comment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.movie-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #252525;
+  color: #ffffff;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 12px;
+  width: fit-content;
+  transition: background 0.2s;
+}
+
+.movie-link:hover {
+  background: #333;
+  text-decoration: underline;
+}
+
+.comment-body {
+  background: #111;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #222;
+}
+
+.comment-text {
+  color: #ccc;
+  font-style: italic;
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 15px;
+  width: 100%;
+}
+
+.input-group label {
+  font-size: 11px;
+  font-weight: 800;
+  color: #777;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.form-row {
+  display: flex;
+  gap: 15px;
+  width: 100%;
+}
+
+.form-row .input-group {
+  flex: 1;
+  min-width: 0;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #333;
+  background: #000;
+  color: #fff;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #098f10;
+}
+
+.primary-btn,
+.save-btn {
+  width: 100%;
+  padding: 14px;
+  background: #088126;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 10px;
+  position: relative;
+  transition: background 0.3s;
+}
+
+.primary-btn:hover,
+.save-btn:hover {
+  background: #06470f;
+}
+
+.primary-btn::after,
+.save-btn::after {
+  content: "";
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: #fff;
+  transition: 0.3s;
+  transform: translateX(-50%);
+}
+
+.primary-btn:hover::after,
+.save-btn:hover::after {
+  width: 25%;
+}
+
+.delete-btn {
+  width: 100%;
+  background: transparent;
+  border: 1px solid #e50914;
+  color: #e50914;
+  padding: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.delete-btn:hover {
+  background: #e50914;
+  color: #fff;
+}
+
+.info strong {
+  display: block;
+  font-size: 1.2rem;
+  margin-bottom: 5px;
+}
+.info p {
+  color: #ccc;
+  font-style: italic;
+  margin: 10px 0;
+  font-size: 0.95rem;
+}
+.rating-badge {
+  background: #000000;
+  color: #e7d806;
+  font-weight: bold;
+  font-size: 0.75rem;
+  padding: 2px 8px;
+  border-radius: 20px;
+}
+.email-text {
+  color: #666;
+  font-size: 0.85rem;
+}
+
+.dropdown {
+  background: #1b1b1b;
+  border: 1px solid #333;
+  border-radius: 6px;
+  max-height: 150px;
+  overflow-y: auto;
+  margin-top: 5px;
+}
+
+.dropdown-item {
+  padding: 8px 10px;
+  cursor: pointer;
+  color: #ccc;
+}
+
+.dropdown-item:hover {
+  background: #333;
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .list-grid {
+    grid-template-columns: 1fr;
+  }
+  .form-row {
+    flex-direction: column;
+    gap: 0;
+  }
+  .tabs button {
+    flex: 1;
+    padding: 10px;
+    font-size: 13px;
+  }
+}
